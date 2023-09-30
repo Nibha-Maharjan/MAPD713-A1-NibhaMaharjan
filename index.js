@@ -57,7 +57,7 @@ const server = http.createServer((req, res) => {
         proDB = [];
         res.writeHead(204, { 'Content-Type': 'text/plain' });
         res.end();
-        console.log(`< ${path} ${req.method}: (All records deleted)`);
+        console.log(`< ${path} ${req.method}: (All are records deleted)`);
     } else {
         //404 Error
         res.writeHead(404, { 'Content-Type': 'text/plain' });
