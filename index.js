@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
         postReq++;
     }
     //Logging which request was called using req.method
-    console.log(`> ${path} ${req.method}: Request was logged`);
+    console.log(`> ${path} ${req.method}: Request recieved`);
 
     //Request handling and error messages
     //Get Request
