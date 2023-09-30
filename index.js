@@ -1,3 +1,9 @@
+// Name: Nibha Maharjan
+// Student ID: 301282952
+// Date Completed: 25th Sep 2023
+// App Desc: Node.js http server to store, retrieve and delete information using GET,POST and DELETE requests and JSON data format.
+
+
 const http = require('http');
 const url = require('url');
 
