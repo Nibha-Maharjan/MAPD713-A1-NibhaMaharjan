@@ -14,6 +14,7 @@ let postReq = 0;
 
 //Setting up HTTP server
 const server = http.createServer((req, res) => {
+    //URL Handle
     const reqUrl = url.parse(req.url, true);
     const path = reqUrl.pathname;
 
@@ -26,38 +27,42 @@ const server = http.createServer((req, res) => {
     } else if (req.method === 'POST') {
         postReq++;
     }
-
-    console.log(`> ${path} ${req.method}: received request`);
+    //Logging which request was called using req.method
+    console.log(`> ${path} ${req.method}: Request was logged`);
 
     //Request handling and error messages
+    //Get Request
     if (req.method === 'GET' && path === '/products') {
         res.writeHead(200, { 'Content-Type': 'application/json' });
         res.end(JSON.stringify(proDB));
-        
-        console.log(`< ${path} ${req.method}: sending response`);
-    } else if (req.method === 'POST' && path === '/products') {
+        console.log(`< ${path} ${req.method}: Sending response`);
+    } else if (
+        //Post Request
+        req.method === 'POST' && path === '/products') {
         let data = '';
-
         req.on('data', chunk => {
             data += chunk;
         });
         req.on('end', () => {
-            const newProduct = JSON.parse(data);
-            proDB.push(newProduct);
+            const addProd = JSON.parse(data);
+            proDB.push(addProd);
             res.writeHead(201, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify(newProduct));
+            res.end(JSON.stringify(addProd));
             
-            console.log(`< ${path} ${req.method}: sending response`);
+            console.log(`< ${path} ${req.method}: Sending response`);
         });
-    } else if (req.method === 'DELETE' && path === '/products') {
+    } else if (
+        //Delete Request
+        req.method === 'DELETE' && path === '/products') {
         proDB = [];
         res.writeHead(204, { 'Content-Type': 'text/plain' });
         res.end();
-        console.log(`< ${path} ${req.method}: sending response (All records deleted)`);
+        console.log(`< ${path} ${req.method}: (All records deleted)`);
     } else {
+        //404 Error
         res.writeHead(404, { 'Content-Type': 'text/plain' });
         res.end('Not Found');
-        console.log(`< ${path} ${req.method}: sending response (Not Found)`);
+        console.log(`< ${path} ${req.method}: (Not Found)`);
     }
 });
 
